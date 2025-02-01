@@ -1,0 +1,39 @@
+---
+- name: web server(apache) on ubuntu
+  hosts: webserver
+  become: yes      #run as root
+  become_user: root
+
+  tasks:
+    - name: update apt update
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: install Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Apache start
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: create HTML page
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+           <head>
+            <title> welcome to my website </title>
+            </head>
+            <body>
+            <h1> Hello World....just kidding ;) </h1>
+            </body>
+          </html>
+
+    - name: Ensure UFW allows HTTP Traffic  #This allows unencrypted web servers to access your server
+      ansible.builtin.ufw:
+        rule: allow
+        name: 'Apache'
