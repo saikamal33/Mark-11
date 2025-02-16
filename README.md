@@ -20,6 +20,4 @@ Post executing the terraform successfuly, we need to run the inv_store.sh script
 ansible-playbook -i <inventory> <playbook.yml>
 ~~~
 
-## Project-3
-### Lauch an ArgoCD inside the minikube cluster
-I have deployed the argocd namespace inside the running minikube cluster and opened the 8080 port for access it through the web UI
+
