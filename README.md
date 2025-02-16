@@ -19,3 +19,5 @@ Post executing the terraform successfuly, we need to run the inv_store.sh script
 ~~~
 ansible-playbook -i <inventory> <playbook.yml>
 ~~~
+
+
