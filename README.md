@@ -41,4 +41,19 @@ docker build -t ultimate-cicd-pipeline:v1 .
 ~~~
 docker run -d -p 8010:8080 -t ultimate-cicd-pipeline:v1
 ~~~
-we can access this using "http://localhost:8010"
+we can access this using "http://localhost:8010" apt install unzip
+
+
+## Sonarqube server locally
+We can install sonarqube in the server using below steps
+~~~
+adduser sonarqube
+su - sonarqube
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+unzip *
+chmod -R 755 /home/sonarqube/sonarqube-9.4.0.54424
+chown -R sonarqube:sonarqube /home/sonarqube/sonarqube-9.4.0.54424
+cd sonarqube-9.4.0.54424/bin/linux-x86-64/
+./sonar.sh start
+~~~
+we can access it using " http://<*ip address*>:9000 "
