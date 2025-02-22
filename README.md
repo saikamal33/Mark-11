@@ -41,7 +41,7 @@ docker build -t ultimate-cicd-pipeline:v1 .
 ~~~
 docker run -d -p 8010:8080 -t ultimate-cicd-pipeline:v1
 ~~~
-we can access this using "http://localhost:8010"apt install unzip
+we can access this using "http://localhost:8010" apt install unzip
 
 
 ## Sonarqube server locally
