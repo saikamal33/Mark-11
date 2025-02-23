@@ -50,8 +50,17 @@ pipeline {
 				}
 			}
 		}
-		
+		// Checkout repository for updating deployment file
+		stage('checkout repo for deployment') {
+			steps {
+		   		dir('Mark-10-Kubernet_repo') {
+		   			sh 'git checkout main'
+		   		}
+		   		git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
+			}
+	  	}
 		stage('update deployment file') {
+			
 			environment {
 				GIT_REPO_NAME = "Mark-10-Kubernet_repo"
 				GIT_USER_NAME = "saikamal33"
