@@ -18,7 +18,7 @@ pipeline {
 			steps {
 				sh '''
 				    ls -ltr
-				    cd ci_cd_full_pipe-Proj-3 && mvn clean package
+				    cd ci_cd_full_pipe-Proj-3 && mvn verify
 				  '''
 			}
 		}
