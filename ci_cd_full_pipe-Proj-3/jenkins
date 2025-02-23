@@ -51,7 +51,7 @@ pipeline {
 			}
 		}
 		
-		stage('update deployment file") {
+		stage('update deployment file') {
 			environment {
 				GIT_REPO_NAME = "Mark-10-Kubernet_repo"
 				GIT_USER_NAME = "saikamal33"
