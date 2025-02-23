@@ -38,7 +38,7 @@ pipeline {
 			environment {
 				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:${BUILD_NUMBER}"
 				// DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
-				REGISTRY_CREDENTIALS = credentials('docker-cred')
+				REGISTRY_CREDENTIALS = credentials('docker-crd')
 			}
 			steps {
 				script {
