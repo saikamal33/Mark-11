@@ -23,17 +23,6 @@ pipeline {
 			}
 		}
 		
-		stage('static code analysis') {
-			environment {
-				SONAR_URL = "http://192.168.146.132:9000"
-			}
-			steps {
-				withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-          			sh 'cd ci_cd_full_pipe-Proj-3 && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
-        			}
-			}
-		}
-		
 		stage('build and push docker image') {
 			environment {
 				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:${BUILD_NUMBER}"
