@@ -54,7 +54,6 @@ pipeline {
 		   		dir('Mark-10-Kubernet_repo') {
 		   			sh '''
 					     git config --global --add safe.directory /var/lib/jenkins/workspace/proj
-					     git checkout main
 					   '''
 		   		}
 		   		git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
