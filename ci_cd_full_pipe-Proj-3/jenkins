@@ -48,6 +48,12 @@ pipeline {
 				}
 			}
 		}
+		stage('Clean Workspace') {
+    			steps {
+        			cleanWs()  // Cleans the workspace
+    			}
+		}
+
 		// Checkout repository for updating deployment file
 		stage('checkout repo for deployment') {
 			steps {
