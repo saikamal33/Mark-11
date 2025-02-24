@@ -2,7 +2,7 @@ pipeline {
 	agent {
 	  docker {
 		image 'kamalsai33/maven-docker-agt:v1'
-		args '--user root -v /var/run/docker.sock:/var/run/docker.sock //mount docker socket to access the hosts docker daemon
+		args '--user root -v /var/run/docker.sock:/var/run/docker.sock' //mount docker socket to access the hosts docker daemon
 	  }
 	}
 	
@@ -13,7 +13,6 @@ pipeline {
 		   		//git branch: 'main',url: 'https://github.com/saikamal33/Mark-11.git'
 			}
 	  	}
-	  
 		stage('Build and Test') {
 			steps {
 				sh '''
@@ -22,10 +21,10 @@ pipeline {
 				  '''
 			}
 		}
-		
+
 		stage('static code analysis') {
 			environment {
-				SONAR_URL = "http://localhost:9000"
+				SONAR_URL = "http://192.168.146.132:9000"
 			}
 			steps {
 				withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -33,25 +32,33 @@ pipeline {
         			}
 			}
 		}
-		
 		stage('build and push docker image') {
 			environment {
 				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:${BUILD_NUMBER}"
 				// DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
-				REGISTRY_CREDENTIALS = credentials('docker-cred')
+				REGISTRY_CREDENTIALS = credentials('docker-crd')
 			}
 			steps {
 				script {
 					sh 'cd ci_cd_full_pipe-Proj-3 && docker build -t ${DOCKER_IMAGE} .'
 					def dockerImage = docker.image("${DOCKER_IMAGE}")
 					docker.withRegistry('https://index.docker.io/v1/', "docker-crd") {
-						dockerImage.push()
+					dockerImage.push()
 					}
 				}
 			}
 		}
-		
-		stage('update deployment file") {
+
+		// Checkout repository for updating deployment file
+		stage('checkout repo for deployment') {
+			steps {
+			       dir('Mark-10-Kubernet_repo') {
+			           git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
+      				   }
+	  		}
+		}
+		stage('update deployment file') {
+			
 			environment {
 				GIT_REPO_NAME = "Mark-10-Kubernet_repo"
 				GIT_USER_NAME = "saikamal33"
@@ -59,13 +66,15 @@ pipeline {
 			steps {
 				withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
 					sh '''
+					    ls -l
 					    git config user.email "kamaleshsai33@gmail.com"
-					    git config user.name "saikamal33"
+					    git config user.name "sai kamal"
 					    BUILD_NUMBER=${BUILD_NUMBER}
 					    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" kube-Mark-10.3/deployment.yml
 					    git add kube-Mark-10.3/deployment.yml
 					    git commit -m "update deployment image to version ${BUILD_NUMBER}"
-					    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main					     '''
+					    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+					'''
 				}
 			}
 		}
