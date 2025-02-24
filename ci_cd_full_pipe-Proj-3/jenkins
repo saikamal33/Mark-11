@@ -18,7 +18,7 @@ pipeline {
 			steps {
 				sh '''
 				    ls -ltr
-				    cd ci_cd_full_pipe-Proj-3 && mvn clean package
+				    cd ci_cd_full_pipe-Proj-3 
 				  '''
 			}
 		}
@@ -57,6 +57,7 @@ pipeline {
 		   			sh 'git checkout main'
 		   		}
 		   		git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
+				git config --global --add safe.directory /var/lib/jenkins/workspace/proj
 			}
 	  	}
 		stage('update deployment file') {
