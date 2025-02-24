@@ -69,6 +69,7 @@ pipeline {
 			steps {
 				withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
 					sh '''
+					    cd Mark-10-Kubernet_repo
 					    git config user.email "kamaleshsai33@gmail.com"
 					    git config user.name "sai kamal"
 					    BUILD_NUMBER=${BUILD_NUMBER}
