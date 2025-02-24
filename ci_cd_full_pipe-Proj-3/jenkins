@@ -57,14 +57,8 @@ pipeline {
 		// Checkout repository for updating deployment file
 		stage('checkout repo for deployment') {
 			steps {
-		   		dir('Mark-10-Kubernet_repo') {
-		   			sh '''
-					     git config --global --add safe.directory /var/lib/jenkins/workspace/proj
-					   '''
-		   		}
 		   		git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
-				
-			}
+			     }
 	  	}
 		stage('update deployment file') {
 			
