@@ -52,7 +52,7 @@ pipeline {
 		// Checkout repository for updating deployment file
 		stage('checkout repo for deployment') {
 			steps {
-			       dir('Mark-10-Kubernet_repo') {
+			       ws("deploy") {
 			           git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
       				   }
 	  		}
@@ -65,7 +65,7 @@ pipeline {
 			}
 			steps {
 				withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-					dir('Mark-10-Kubernet_repo') {
+					ws("deploy")  {
 						sh '''
 						    ls -l
 						    git config user.email "kamaleshsai33@gmail.com"
@@ -84,7 +84,8 @@ pipeline {
 	post {
    	 	always {
 			sh 'mvn clear'
-        		cleanWs()  // This will remove the entire workspace at the end of the build
+        		cleanWs() 
+			cleanWs("deploy") // This will remove the entire workspace at the end of the build
 	 	}
   	}
 }
