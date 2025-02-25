@@ -50,9 +50,11 @@ pipeline {
 		}
 
 		// Checkout repository for updating deployment file
-		stage('checkout repo for deployment') {
-			steps {
-			       ws("deploy") {
+		stage('clean and checkout new repo for deployment') {
+            			steps {
+                			cleanWs() // Clean the workspace to start fresh
+		
+			       	dir('Mark-10-Kubernet_repo') {
 			           git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
       				   }
 	  		}
@@ -65,7 +67,7 @@ pipeline {
 			}
 			steps {
 				withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-					ws("deploy")  {
+					dir('Mark-10-Kubernet_repo') {
 						sh '''
 						    ls -l
 						    git config user.email "kamaleshsai33@gmail.com"
