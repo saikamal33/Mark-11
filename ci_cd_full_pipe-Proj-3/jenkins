@@ -51,7 +51,6 @@ pipeline {
 	}
 	post {
    	 	always {
-			sh 'mvn clear'
         		cleanWs()  // This will remove the entire workspace at the end of the build
 	 		
   		}
