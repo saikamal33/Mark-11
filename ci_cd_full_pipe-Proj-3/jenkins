@@ -34,7 +34,7 @@ pipeline {
 		}
 		stage('build and push docker image') {
 			environment {
-				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:${BUILD_NUMBER}"
+				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:v1"
 				// DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
 				REGISTRY_CREDENTIALS = credentials('docker-crd')
 			}
@@ -48,40 +48,6 @@ pipeline {
 				}
 			}
 		}
-
-		// Checkout repository for updating deployment file
-		stage('checkout new repo for deployment') {
-        		steps {
-			       	dir('Mark-10-Kubernet_repo') {
-			           git branch: 'main', url: 'https://github.com/saikamal33/Mark-10-Kubernet_repo'
-      				   }
-			}
-	  	}
-		stage('update deployment file') {
-			
-			environment {
-				GIT_REPO_NAME = "Mark-10-Kubernet_repo"
-				GIT_USER_NAME = "saikamal33"
-			}
-			steps {
-				withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-					dir('Mark-10-Kubernet_repo') {
-						sh '''
-						    git status
-						    ls -l
-						    git config user.email "kamaleshsai33@gmail.com"
-						    git config user.name "sai kamal"
-						    BUILD_NUMBER=${BUILD_NUMBER}
-						    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" kube-Mark-10.3/deployment.yml
-						    git add kube-Mark-10.3/deployment.yml
-					 	    git commit -m "update deployment image to version ${BUILD_NUMBER}"
-					    	    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-						   '''
-					}
-				}
-			}
-		}
-	}
 	post {
    	 	always {
 			sh 'mvn clear'
