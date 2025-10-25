@@ -1,3 +1,5 @@
+###NOTE: This script only focus on the ERROR log level ONLY
+
 import pandas as pd  #for data manipulation
 from collections import Counter #for counting occurrences
 import re
@@ -19,7 +21,7 @@ df["timestamp"] = pd.to_datetime(df["timestamp"])
 
 # Count the number of errors in last 30 seconds
 error_counts = Counter(df[df['level'] == 'ERROR']['timestamp'].dt.floor('30s'))
-threshold = 5
+threshold = 3
 # finding the timestamps where error count exceeds threshold
 error_spikes = [time for time, count in error_counts.items() if count > threshold]
 #filter logs with anomalies
