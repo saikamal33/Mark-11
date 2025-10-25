@@ -1,3 +1,5 @@
+###NOTE: This script only focus on the ERROR log level ONLY
+
 import pandas as pd  #for data manipulation
 from collections import Counter #for counting occurrences
 import re
