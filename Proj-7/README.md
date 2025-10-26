@@ -12,7 +12,35 @@ EX: github Copilat
 
 **AI Agent Framework** : The frameworks are used to generate our own AI Agents. Some examples of AI agent frameworks are:
 
-	1) Autogen	2) Lang graph	3)Crew AI
+1) Autogen	2) Lang graph	3)Crew AI
 
+Now we can create the project.
+## Prerequsites:
+- Python >=3.10 to 3.13
+- llama3.1:latest
+  
+## Installation Process
+- Create a virtual env for the pyhton project
 
+		python3 -m venv crew
+- install the crew agent using pip
 
+		pip install crewai
+- Now we create a crew ai python package
+
+		crewai create crew ai-devops-proj
+
+## Use case
+
+No coding and development is required here as crew ai is ment to be used for research purpose all the prompts for the agents are configured in a way of getting optimal research output.
+
+- We need to update the **topics** in the main.py python file
+
+		vi ai_devops_proj/src/ai_devops_proj/main.py
+
+- now we need to run the below commands
+
+		crewai install
+  		crewai run
+  
+  
