@@ -33,7 +33,7 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "topic": "Kubernetes",
+        "topic": "kubernetes",
         'current_year': str(datetime.now().year)
     }
     try:
@@ -57,7 +57,7 @@ def test():
     Test the crew execution and returns the results.
     """
     inputs = {
-        "topic": "Kubernetes",
+        "topic": "kubernetes",
         "current_year": str(datetime.now().year)
     }
 
@@ -83,8 +83,8 @@ def run_with_trigger():
 
     inputs = {
         "crewai_trigger_payload": trigger_payload,
-        "topic": "Kubernetes",
-        "current_year": str(datetime.now().year)
+        "topic": "",
+        "current_year": ""
     }
 
     try:
